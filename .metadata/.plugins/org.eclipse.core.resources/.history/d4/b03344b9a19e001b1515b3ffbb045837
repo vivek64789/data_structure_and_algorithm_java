@@ -1,0 +1,103 @@
+package tree;
+
+import java.util.Scanner;
+
+public class BinaryTree {
+	
+	static String[] myTree;
+	static String data;
+	static String parent;
+	static String position;
+	static int len;
+	static Scanner sc;	
+	
+	public static void main(String[] args) {
+		
+		sc = new Scanner(System.in);
+		
+		System.out.print("Please enter total nodes of Tree: ");
+		len = sc.nextInt();
+		myTree = new String[len];
+		System.out.println("");
+		
+		System.out.print("Please Enter Node data: ");
+		data = sc.next();
+		System.out.println("");
+		
+		myTree[0] = data;
+		printMyTree();
+		askData();
+		printMyTree();
+		
+	}
+	
+	public static void askData() {
+		
+		for(int i=0; i<len-1; i++) {
+			System.out.println("============================");
+			System.out.print("Please Enter Node data: ");
+			data = sc.next();
+			System.out.println("");
+			
+			System.out.print("Please Enter Parent Node: ");
+			parent = sc.next();
+			System.out.println("");
+			
+			System.out.print("Please Enter in which side you want to add left[L/l] or right[R/r]: ");
+			position = sc.next();
+
+			binaryTreeWorking(data, parent, position);
+			printMyTree();
+		}
+		
+	}
+	
+	public static void printMyTree() {
+		System.out.print("[ ");
+		
+		for(int i = 0; i<myTree.length; i++) {
+			
+			System.out.print(myTree[i]+" ");
+			
+		}
+		
+		System.out.println(" ]");
+	}
+	
+	
+	public static int getParent(String parent) {
+		System.out.println("ask index of Parent: "+ parent);
+		
+		int index =0;
+		
+		for(int i = 0; i<myTree.length; i++) {
+			
+			System.out.println("My Tree: "+ myTree[i]);
+			if(myTree[i].equals(parent)) {
+				index =  i;
+				return index;
+			}	
+		}
+		return index;	
+	}
+	
+	public static void binaryTreeWorking(String data, String parent, String position) {
+		
+		if(position.equals("L") || position.equals("l")) {
+			
+			int parentIndex = getParent(parent);
+			System.out.println("parent index: "+ parentIndex);
+			myTree[parentIndex*2+1] = data;
+			
+		}else if(position.equals("R") || position.equals("r")) {
+			
+			int parentIndex = getParent(parent);
+			System.out.println("parent index: "+ parentIndex);
+			myTree[parentIndex*2+2] = data;
+			
+		}else {
+			System.out.println("Invalid Choice Fill details again");
+			askData();
+		}
+	}
+}

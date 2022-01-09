@@ -1,0 +1,79 @@
+package week2;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class GameOfTwoStack {
+	
+	public static int twoStacks(int x, int[]a, int[]b) {
+		
+		int aIndex = 0;
+		int bIndex= 0;
+		int count = 0;
+		int sum = 0;
+		
+		// moving bIndex to the position of last elements till where elements can be taken from B
+		
+		while(bIndex <b.length && sum+b[bIndex]<=x) {
+			sum += b[bIndex];
+			bIndex++;
+		}
+		// whenever b index reaches end or sum>x, more elements can not be taken from it, so decrease
+		// bIndex and increase count;
+		bIndex--;
+		count = bIndex +1;
+		
+		while(aIndex < a.length && bIndex < b.length) {
+			sum += a[aIndex];
+			if(sum > x) {
+				while(bIndex>=0) {
+					sum -=b[bIndex];
+					bIndex--;
+					if(sum<=x) break;
+				}
+				// even if no elements is taken from B stack, but still sum is greater than x, 
+				// then a[Index] should not be chosen and loop terminates
+				
+				if(sum>x && bIndex<0) {
+					aIndex--;
+					break;
+				}
+			}
+			count = Math.max(aIndex + bIndex + 2, count);
+			aIndex++;
+		}
+		
+		return count;
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		Scanner scanner= new Scanner(System.in);
+		int g = Integer.parseInt(scanner.nextLine().trim());
+		
+		for(int gItr = 0; gItr<g; gItr++) {
+			String[] nmx = scanner.nextLine().split(" ");
+			int n = Integer.parseInt(nmx[0].trim());
+			int m = Integer.parseInt(nmx[1].trim());
+			int x = Integer.parseInt(nmx[2].trim());
+			
+			int[] a = new int[n];
+			String[] aItems = scanner.nextLine().split(" ");
+			for(int aItr = 0; aItr<n; aItr++) {
+				int aItem = Integer.parseInt(aItems[aItr].trim());
+				a[aItr] = aItem;
+				
+			}
+			int[] b = new int[m];
+			String[] bItems = scanner.nextLine().split(" ");
+			for(int bItr = 0; bItr<m; bItr++) {
+				int bItem = Integer.parseInt(bItems[bItr].trim());
+				b[bItr] = bItem;
+			}
+			
+			int result = twoStacks(x,a,b);
+			System.out.println(result);
+		}
+	}
+}

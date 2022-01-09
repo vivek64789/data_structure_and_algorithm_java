@@ -1,0 +1,10 @@
+INDEX VERSION 1.131+D:\Programming\completePushToGit\.metadata\.plugins\org.eclipse.jdt.core
+4198598768.index
+340781404.index
+1456659889.index
+2370222310.index
+3460880079.index
+4247538793.index
+1680154067.index
+321006917.index
+2318105855.index
